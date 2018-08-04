@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--title style-->
+    <style name="title_list_item">
+        <item name="padding_left">@dimen/padding_left</item>
+        <item name="padding_top">@dimen/padding_top</item>
+        <item name="title_text_color">@color/title_text_color</item>
+        <item name="title_text_size">@dimen/title_text_size</item>
+    </style>
+
+    <!--section style-->
+    <style name="section_list_item">
+        <item name="padding_left">@dimen/padding_left</item>
+        <item name="padding_top">@dimen/padding_top</item>
+        <item name="section_text_color">@color/section_text_color</item>
+        <item name="section_text_size">@dimen/section_text_size</item>
+    </style>
+
+    <!--date style-->
+    <style name="date_list_item">
+        <item name="padding_left">@dimen/padding_left</item>
+        <item name="padding_top">@dimen/padding_top</item>
+        <item name="date_text_color">@color/date_text_color</item>
+        <item name="date_text_size">@dimen/date_text_size</item>
+    </style>
+
+    <!--author style-->
+    <style name="author_list_item">
+        <item name="padding_left">@dimen/padding_left</item>
+        <item name="padding_top">@dimen/padding_top</item>
+        <item name="author_text_color">@color/author_text_color</item>
+        <item name="author_text_size">@dimen/author_text_size</item>
+    </style>
+
+</resources>
