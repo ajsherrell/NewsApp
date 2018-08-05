@@ -23,7 +23,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     // URL with my private key from Guardian API
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=show-references=author&api-key=c275cc44-cc41-4cb6-a339-aa1c72d60bf0";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?";
+
+    // api key
+    private static final String MY_API_KEY = "c275cc44-cc41-4cb6-a339-aa1c72d60bf0";
 
     // adapter for the list of news
     private NewsAdapter mAdapter;
@@ -109,8 +112,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+        // start building URL with Uri.parse
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // add parameters
+        uriBuilder.appendQueryParameter("q", "politics");
+        uriBuilder.appendQueryParameter("format", "json");
+        uriBuilder.appendQueryParameter("show-fields", "all");
+        uriBuilder.appendQueryParameter("api-key", MY_API_KEY);
+        // get full url in log
+        Log.i(TAG, uriBuilder.toString());
+
         // create a new loader for the given URL
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override

@@ -188,7 +188,7 @@ public final class QueryUtils {
                 if (currentNewsArticle.getString("author") == null) {
                     author = "Author unknown";
                 } else {
-                    currentNewsArticle.getString("author");
+                    author = currentNewsArticle.getString("author");
                 }
 
 
