@@ -186,7 +186,7 @@ public final class QueryUtils {
                 // extract the value for the JSONObject called "fields"
                 JSONObject fields = currentNewsArticle.getJSONObject("fields");
                 // get value from JSONObject fields key called "byline;
-                String author = fields.getString("byline");
+                String author = fields.optString("byline");
 
 
                 // create a new {@link News} object with the JSON response
