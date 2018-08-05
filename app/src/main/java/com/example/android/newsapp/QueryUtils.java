@@ -183,13 +183,10 @@ public final class QueryUtils {
                 // extract the value for the key called "webPublicationDate"
                 String date = currentNewsArticle.getString("webPublicationDate");
 
-                // extract the value for the key called "author"
-                String author = "";
-                if (currentNewsArticle.getString("author") == null) {
-                    author = "Author unknown";
-                } else {
-                    author = currentNewsArticle.getString("author");
-                }
+                // extract the value for the JSONObject called "fields"
+                JSONObject fields = currentNewsArticle.getJSONObject("fields");
+                // get value from JSONObject fields key called "byline;
+                String author = fields.getString("byline");
 
 
                 // create a new {@link News} object with the JSON response

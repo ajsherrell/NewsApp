@@ -23,7 +23,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     // URL with my private key from Guardian API
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=editions?q=uk&order-by=newest&page-size=4&show-fields=thumbnail%2Cbyline";
 
     // api key
     private static final String MY_API_KEY = "c275cc44-cc41-4cb6-a339-aa1c72d60bf0";
@@ -117,9 +117,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         // add parameters
-        uriBuilder.appendQueryParameter("q", "politics");
-        uriBuilder.appendQueryParameter("format", "json");
-        uriBuilder.appendQueryParameter("show-fields", "all");
         uriBuilder.appendQueryParameter("api-key", MY_API_KEY);
         // get full url in log
         Log.i(TAG, uriBuilder.toString());
