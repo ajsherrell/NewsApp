@@ -4,4 +4,7 @@
     <!--new article state-->
     <string name="no_news_articles">Check back for news articles soon!</string>
     <string name="no_internet_connection">No internet connection.</string>
+
+    <!--News name-->
+    <string name="newsName">Top News</string>
 </resources>

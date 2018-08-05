@@ -52,10 +52,10 @@ public final class QueryUtils {
 
         // Extract relevant fields from the JSON response and create a list of
         // {@link News} objects.
-        List<News> newsArticles = extractFeatureFromJson(jsonResponse);
+        List<News> news = extractFeatureFromJson(jsonResponse);
 
         // return the list of {@link News} objects
-        return newsArticles;
+        return news;
     }
 
     /**
@@ -184,7 +184,13 @@ public final class QueryUtils {
                 String date = currentNewsArticle.getString("webPublicationDate");
 
                 // extract the value for the key called "author"
-                String author = currentNewsArticle.getString("author");
+                String author = "";
+                if (currentNewsArticle.getString("author") == null) {
+                    author = "Author unknown";
+                } else {
+                    currentNewsArticle.getString("author");
+                }
+
 
                 // create a new {@link News} object with the JSON response
                 News newsArticles = new News(title, date, section, author, url);
