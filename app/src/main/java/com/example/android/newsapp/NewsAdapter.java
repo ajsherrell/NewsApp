@@ -63,13 +63,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         // check if date object text present
         if (currentNewsArticle.hasDate()) {
-            // Create a new Date object from the time in milliseconds of the earthquake
-            Date dateObject = new Date(currentNewsArticle.getDate());
-
-            // Format the date string (i.e. "Mar 3, 1984") -used from QuakeReport App
-            String formattedDate = formatDate(dateObject);
-            // display the date
-            dateView.setText(formattedDate);
+            // if present, display
+            dateView.setText(currentNewsArticle.getDate());
 
             // make date view visible
             dateView.setVisibility(View.VISIBLE);
@@ -92,15 +87,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         }
 
         return listItemView;
-    }
-
-    /**
-     * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
-     *  Used from Quake Report App
-     */
-    private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
-        return dateFormat.format(dateObject);
     }
 
 }

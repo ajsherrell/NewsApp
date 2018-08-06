@@ -2,52 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:orientation="horizontal"
-    android:paddingEnd="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingStart="16dp">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_height"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <TextView android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/titleView_height"
             style="@style/title_list_item"
+            android:maxLines="1"
+            android:gravity="bottom"
+            android:ellipsize="end"
             tools:text="Title"/>
 
         <TextView android:id="@+id/section"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewHeight"
             style="@style/section_list_item"
+            android:gravity="top"
+            android:maxLines="1"
             tools:text="Section"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/list_item_height"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <TextView android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewHeight"
             style="@style/date_list_item"
+            android:maxLines="1"
+            android:gravity="bottom"
             tools:text="Date"/>
 
         <TextView android:id="@+id/author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/date"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewHeight"
             style="@style/author_list_item"
+            android:gravity="top"
+            android:maxLines="1"
             tools:text="Author"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

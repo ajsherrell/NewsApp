@@ -181,7 +181,11 @@ public final class QueryUtils {
                 String url = currentNewsArticle.getString("webUrl");
 
                 // extract the value for the key called "webPublicationDate"
-                String date = currentNewsArticle.getString("webPublicationDate");
+                String webPublicationDate = currentNewsArticle.getString("webPublicationDate");
+                // split the date
+                String[] webDate;
+                webDate = webPublicationDate.split("T");
+                String date = webDate[0];
 
                 // extract the value for the JSONObject called "fields"
                 JSONObject fields = currentNewsArticle.getJSONObject("fields");
