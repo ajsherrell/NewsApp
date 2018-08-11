@@ -1,3 +1,5 @@
+// used code from Udacity's QuakeReport app
+
 package com.example.android.newsapp;
 
 import android.content.SharedPreferences;
