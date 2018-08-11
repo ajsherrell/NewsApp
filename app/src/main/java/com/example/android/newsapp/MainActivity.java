@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
  SharedPreferences.OnSharedPreferenceChangeListener {
 
     // URL with my private key from Guardian API
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search";
 
     // api key
     private static final String MY_API_KEY = "c275cc44-cc41-4cb6-a339-aa1c72d60bf0";

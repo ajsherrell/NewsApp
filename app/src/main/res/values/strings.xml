@@ -30,14 +30,14 @@
     <!--strings for order by-->
     <string name="settings_order_by_label">Order By</string>
     <string name="settings_order_by_key" translatable="false">order_by</string>
-    <string name="settings_order_by_default" translatable="false">time</string>
+    <string name="settings_order_by_default" translatable="false">newest</string>
 
     <!-- Label for order-by newest option [CHAR LIMIT=20] -->
     <string name="settings_order_by_newest_label">Newest</string>
-    <string name="settings_order_by_newest_value" translatable="false">newest_time</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
 
     <!-- Label for order-by oldest option [CHAR LIMIT=20] -->
     <string name="settings_order_by_oldest_label">Oldest</string>
-    <string name="settings_order_by_oldest_value" translatable="false">oldest_time</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
 
 </resources>
