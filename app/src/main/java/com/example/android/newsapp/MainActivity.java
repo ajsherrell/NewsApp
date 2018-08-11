@@ -4,12 +4,16 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,10 +24,11 @@ import java.util.List;
 
 // used some code from the QuakeReport App Udacity
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>>,
+ SharedPreferences.OnSharedPreferenceChangeListener {
 
     // URL with my private key from Guardian API
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=editions?q=us&order-by=newest&page-size=10&show-fields=byline";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?";
 
     // api key
     private static final String MY_API_KEY = "c275cc44-cc41-4cb6-a339-aa1c72d60bf0";
@@ -58,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         newsListView.setAdapter(mAdapter);
+
+        // obtain a reference to the SharedPreference file for this app
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // and register to be notified of preference changes
+        // so we know when the user has adjusted the query settings
+        prefs.registerOnSharedPreferenceChangeListener(this);
 
         // set click listener to go to website
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,14 +122,52 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
+    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+        if (key.equals(getString(R.string.settings_editions_key)) ||
+                key.equals(getString(R.string.settings_order_by_key))) {
+            // Clear the ListView as a new query will be kicked off
+            mAdapter.clear();
+
+            // Hide the empty state text view as the loading indicator will be displayed
+            mEmptyStateTextView.setVisibility(View.GONE);
+
+            // Show the loading indicator while new data is being fetched
+            View loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator.setVisibility(View.VISIBLE);
+
+            // Restart the loader to requery the USGS as the query settings have been updated
+            getLoaderManager().restartLoader(NEWS_LOADER_ID, null, this);
+        }
+    }
+
+    @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter
+        // is the default value for this preference.
+        String editions = sharedPrefs.getString(
+                getString(R.string.settings_editions_key),
+                getString(R.string.settings_editions_default)
+        );
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
         // start building URL with Uri.parse
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         // add parameters
+        uriBuilder.appendQueryParameter("editions", editions);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("page-size", "10");
+        uriBuilder.appendQueryParameter("show-fields", "byline");
         uriBuilder.appendQueryParameter("api-key", MY_API_KEY);
-        // get full url in log
+        // get full url in log 'https://content.guardianapis.com/search?q=editions?q=us&order-by=newest&page-size=10&show-fields=byline'
         Log.i(TAG, uriBuilder.toString());
 
         // create a new loader for the given URL
@@ -148,6 +197,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // loader reset, so we can clear out our existing data
         mAdapter.clear();
         Log.i(TAG, "onLoaderReset: The loader has reset!!!!!!!!!!!");
+    }
+
+    @Override
+    // this method initializes the contents of the activity's options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // inflate the options menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
